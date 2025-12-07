@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Curse of the Dead - Bitcraft Studio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .studio-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            margin: 4rem 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+
+        section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-video {
+            flex: 1;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            background-color: #333;
+        }
+
+        .hero-video img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .play-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            background-color: #ddd;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .info-card {
+            background-color: #111;
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .info-card h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: #aaa;
+        }
+
+        .info-card p {
+            font-size: 0.9rem;
+            color: #999;
+            margin: 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background-color: #111;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .feature-card h3 {
+            color: #4ade80;
+            margin-bottom: 1rem;
+        }
+
+        .screenshot-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .screenshot-container img {
+            width: 100%;
+            border-radius: 0.5rem;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+
+        .screenshot-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .indicator {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+            background-color: #444;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .indicator.active {
+            background-color: #fff;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            background-color: #111;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+
+        .member-photo {
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            display: block;
+        }
+
+        .member-name {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-role {
+            color: #4ade80;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .member-desc {
+            font-size: 0.9rem;
+            color: #aaa;
+            line-height: 1.5;
+        }
+
+        footer {
+            padding: 3rem 2rem;
+            border-top: 1px solid #333;
+            text-align: center;
+        }
+
+        .footer-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-content p {
+            color: #777;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            color: #777;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #fff;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide-in {
+            animation: slideIn 0.5s ease-in-out forwards;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="studio-name">Bitcraft Studio</div>
+            <nav>
+                <ul>
+                    <li><a href="#" class="nav-link active" data-target="home">О игре</a></li>
+                    <li><a href="#" class="nav-link" data-target="screenshots">Скриншоты</a></li>
+                    <li><a href="#" class="nav-link" data-target="features">Особенности</a></li>
+                    <li><a href="#" class="nav-link" data-target="video">Видео</a></li>
+                    <li><a href="#" class="nav-link" data-target="team">Команда</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="active">
+            <div class="hero">
+                <div class="hero-text">
+                    <h1>The Curse of the Dead</h1>
+                    <p>Психологический хоррор от первого лица на заброшенном корабле. Исследуйте, выживайте и примите решение, которое определит вашу судьбу.</p>
+                    <div class="btn-container">
+                        <button class="btn btn-primary">Скачать демо</button>
+                        <button class="btn btn-secondary">Узнать больше</button>
+                    </div>
+                </div>
+                <div class="hero-video">
+                    <img src="https://placehold.co/1200x675/1a1a1a/ffffff?text=Трейлер+игры" alt="Трейлер игры">
+                    <div class="play-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-content">
+                <div>
+                    <h3>Наша концепция</h3>
+                    <p>The Curse of the Dead — это психологический хоррор, где страх рождается не от внезапных испугов, а от атмосферы изоляции, паранойи и давления неизвестного прошлого. Игрок просыпается на заброшенной барже посреди моря и должен исследовать судно, избегая сверхъестественных угроз, и сделать выбор: кем именно он будет на этом судне.</p>
+                    
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h4>Жанр</h4>
+                            <p>Психологический хоррор / Приключение / Головоломка</p>
+                        </div>
+                        <div class="info-card">
+                            <h4>Платформы</h4>
+                            <p>ПК (Steam)</p>
+                        </div>
+                        <div class="info-card">
+                            <h4>Целевая аудитория</h4>
+                            <p>Подростки и взрослые, любящие атмосферные хорроры</p>
+                        </div>
+                        <div class="info-card">
+                            <h4>Сеттинг</h4>
+                            <p>Заброшенная грузовая баржа в туманах океана</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>Основные механики</h3>
+                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                        <li style="margin-bottom: 0.75rem;">Исследование с счетчиком Гейгера</li>
+                        <li style="margin-bottom: 0.75rem;">Использование противогаза как фильтра восприятия</li>
+                        <li style="margin-bottom: 0.75rem;">Финальный нарративный выбор</li>
+                    </ul>
+                    <div style="background-color: #111; padding: 1.5rem; border-radius: 0.5rem; margin-top: 1.5rem;">
+                        <h4 style="margin-bottom: 1rem;">Уникальные особенности</h4>
+                        <ul style="font-size: 0.9rem; color: #aaa; padding-left: 1.25rem;">
+                            <li style="margin-bottom: 0.5rem;">Атмосфера безысходности и изоляции</li>
+                            <li style="margin-bottom: 0.5rem;">Психологический ужас вместо скримеров</li>
+                            <li style="margin-bottom: 0.5rem;">Моральный выбор, определяющий судьбу</li>
+                            <li>Эпистемические предметы для повествования</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="screenshots">
+            <h2>Скриншоты</h2>
+            <div class="screenshot-container">
+                <img id="screenshot-img" src="https://placehold.co/800x450/1a1a1a/ffffff?text=Заброшенная+палуба" alt="Скриншот игры">
+                <div class="screenshot-indicators">
+                    <div class="indicator active" data-index="0"></div>
+                    <div class="indicator" data-index="1"></div>
+                    <div class="indicator" data-index="2"></div>
+                    <div class="indicator" data-index="3"></div>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 1.5rem; color: #777;">
+                Нажмите на индикатор, чтобы переключить скриншот
+            </div>
+        </section>
+
+        <section id="features">
+            <h2>Особенности игры</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Психологический ужас</h3>
+                    <p>Атмосфера безысходности и изоляции создается через исследование заброшенного корабля, где страх рождается из паранойи и светового дизайна, а не из кровавых скримеров.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Моральный выбор</h3>
+                    <p>На мостике вы решаете: послать SOS или узнать свою геолокацию, подправив курс корабля. Ваш выбор определит не только исход игры, но и вашу вечную судьбу.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Эпистемические предметы</h3>
+                    <p>Повествование осуществляется через аудиодневники экипажа и записки, раскрывающие предысторию. Прямых кат-сцен нет, чтобы не вырывать игрока из погружения.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="video">
+            <h2>Трейлер</h2>
+            <div class="hero-video" style="max-width: 800px; margin: 0 auto;">
+                <img src="https://placehold.co/1200x675/1a1a1a/ffffff?text=Трейлер+игры" alt="Трейлер игры">
+                <div class="play-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 1.5rem; color: #777;">
+                Кликните на видео, чтобы начать просмотр
+            </div>
+        </section>
+
+        <section id="team">
+            <h2>Наша команда</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="https://placehold.co/300x300/1a1a1a/ffffff?text=Адель" alt="Джалилов Адель" class="member-photo">
+                    <h3 class="member-name">Джалилов Адель</h3>
+                    <div class="member-role">Художник-моделлер</div>
+                    <p class="member-desc">Создал 3D-модель корабля и наполнил его деталями. Отвечает за визуальное наполнение мира игры, делая его реалистичным и пугающим.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://placehold.co/300x300/1a1a1a/ffffff?text=Илья" alt="Аксельевич Илья" class="member-photo">
+                    <h3 class="member-name">Аксельевич Илья</h3>
+                    <div class="member-role">Программист и левел-дизайнер</div>
+                    <p class="member-desc">Разработал логику игры: поведение врагов, механики дверей и замков. Также участвовал в создании основных игровых сцен и уровня.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://placehold.co/300x300/1a1a1a/ffffff?text=Антон" alt="Пономарев Антон" class="member-photo">
+                    <h3 class="member-name">Пономарев Антон</h3>
+                    <div class="member-role">Геймдизайнер и сценарист</div>
+                    <p class="member-desc">Придумал ключевые механики игры и логично вписал их в жанр психологического хоррора. Участвовал в разработке игрового меню и сюжета.</p>
+                </div>
+                <div class="team-member">
+                    <img src="https://placehold.co/300x300/1a1a1a/ffffff?text=Максим" alt="Пономарев Максим" class="member-photo">
+                    <h3 class="member-name">Пономарев Максим</h3>
+                    <div class="member-role">Программист</div>
+                    <p class="member-desc">Создал систему меню, сохранения и локализации. Реализовал взаимодействие игрока с окружением на корабле, обеспечивая плавность геймплея.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <h3>Bitcraft Studio</h3>
+            <p>Создаем атмосферные психологические хорроры с глубоким нарративом</p>
+            <div class="social-links">
+                <a href="#">Discord</a>
+                <a href="#">Twitter</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Update active nav link
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show target section
+                    const target = this.getAttribute('data-target');
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                        if(section.id === target) {
+                            section.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // Screenshot slider
+            const indicators = document.querySelectorAll('.indicator');
+            const screenshotImg = document.getElementById('screenshot-img');
+            const screenshots = [
+                'https://placehold.co/800x450/1a1a1a/ffffff?text=Заброшенная+палуба',
+                'https://placehold.co/800x450/1a1a1a/ffffff?text=Комната+капитана',
+                'https://placehold.co/800x450/1a1a1a/ffffff?text=Счетчик+Гейгера',
+                'https://placehold.co/800x450/1a1a1a/ffffff?text=Мостик+корабля'
+            ];
+            
+            let currentSlide = 0;
+            
+            function updateSlide(index) {
+                screenshotImg.src = screenshots[index];
+                
+                indicators.forEach((indicator, i) => {
+                    indicator.classList.remove('active');
+                    if(i === index) {
+                        indicator.classList.add('active');
+                    }
+                });
+                
+                currentSlide = index;
+            }
+            
+            indicators.forEach(indicator => {
+                indicator.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    updateSlide(index);
+                });
+            });
+            
+            // Auto-rotate screenshots
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % screenshots.length;
+                updateSlide(currentSlide);
+            }, 5000);
+            
+            // Play button functionality
+            const playButtons = document.querySelectorAll('.play-button');
+            playButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    alert('Видео запущено! (Демонстрация функционала)');
+                });
+            });
+            
+            // Add fade-in animation to elements when they become active
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
+
