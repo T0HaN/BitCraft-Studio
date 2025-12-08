@@ -127,7 +127,7 @@
             background-color: #333;
         }
 
-        .hero-video img {
+        .hero-video video {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -394,12 +394,10 @@
                     </div>
                 </div>
                 <div class="hero-video">
-                    <img src="https://placehold.co/1200x675/1a1a1a/ffffff?text=Трейлер+игры" alt="Трейлер игры">
-                    <div class="play-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                    </div>
+                <video width="640" height="360" muted autoplay loop>
+                    <source src="BitrCraft.mp4" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
                 </div>
             </div>
 
@@ -430,9 +428,9 @@
                 <div>
                     <h3>Основные механики</h3>
                     <ul style="margin: 1rem 0; padding-left: 1.5rem;">
-                        <li style="margin-bottom: 0.75rem;">Исследование с счетчиком Гейгера</li>
-                        <li style="margin-bottom: 0.75rem;">Использование противогаза как фильтра восприятия</li>
-                        <li style="margin-bottom: 0.75rem;">Финальный нарративный выбор</li>
+                        <li style="margin-bottom: 0.75rem;">Исследование корабля</li>
+                        <li style="margin-bottom: 0.75rem;">Система света</li>
+                        <li style="margin-bottom: 0.75rem;">NPC</li>
                     </ul>
                     <div style="background-color: #111; padding: 1.5rem; border-radius: 0.5rem; margin-top: 1.5rem;">
                         <h4 style="margin-bottom: 1rem;">Уникальные особенности</h4>
@@ -484,11 +482,11 @@
         <section id="video">
             <h2>Трейлер</h2>
             <div class="hero-video" style="max-width: 800px; margin: 0 auto;">
-                <img src="https://placehold.co/1200x675/1a1a1a/ffffff?text=Трейлер+игры" alt="Трейлер игры">
-                <div class="play-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z"/>
-                    </svg>
+                <div class="hero-video">
+                    <video controls width="640" height="360">
+                    <source src="BitrCraft.mp4" type="video/mp4">
+                    </video>
+                </div>
                 </div>
             </div>
             <div style="text-align: center; margin-top: 1.5rem; color: #777;">
@@ -500,25 +498,25 @@
             <h2>Наша команда</h2>
             <div class="team-grid">
                 <div class="team-member">
-                    <img src="https://placehold.co/300x300/1a1a1a/ffffff?text=Адель" alt="Джалилов Адель" class="member-photo">
+                    <img src="img\photo_2025-12-08_14-51-32.jpg" alt="Джалилов Адель" class="member-photo">
                     <h3 class="member-name">Джалилов Адель</h3>
                     <div class="member-role">Художник-моделлер</div>
                     <p class="member-desc">Создал 3D-модель корабля и наполнил его деталями. Отвечает за визуальное наполнение мира игры, делая его реалистичным и пугающим.</p>
                 </div>
                 <div class="team-member">
-                    <img src="https://placehold.co/300x300/1a1a1a/ffffff?text=Илья" alt="Аксельевич Илья" class="member-photo">
+                    <img src="img/@pavellitvinov00267 (1).jpeg" alt="Акселевич Илья" class="member-photo">
                     <h3 class="member-name">Аксельевич Илья</h3>
                     <div class="member-role">Программист и левел-дизайнер</div>
                     <p class="member-desc">Разработал логику игры: поведение врагов, механики дверей и замков. Также участвовал в создании основных игровых сцен и уровня.</p>
                 </div>
                 <div class="team-member">
-                    <img src="https://placehold.co/300x300/1a1a1a/ffffff?text=Антон" alt="Пономарев Антон" class="member-photo">
+                    <img src="img\photo_2025-12-08_14-53-25.jpg" alt="Пономарев Антон" class="member-photo">
                     <h3 class="member-name">Пономарев Антон</h3>
                     <div class="member-role">Геймдизайнер и сценарист</div>
                     <p class="member-desc">Придумал ключевые механики игры и логично вписал их в жанр психологического хоррора. Участвовал в разработке игрового меню и сюжета.</p>
                 </div>
                 <div class="team-member">
-                    <img src="https://placehold.co/300x300/1a1a1a/ffffff?text=Максим" alt="Пономарев Максим" class="member-photo">
+                    <img src="img/photo_2025-12-08_14-51-27.jpg" alt="Пономарев Максим" class="member-photo">
                     <h3 class="member-name">Пономарев Максим</h3>
                     <div class="member-role">Программист</div>
                     <p class="member-desc">Создал систему меню, сохранения и локализации. Реализовал взаимодействие игрока с окружением на корабле, обеспечивая плавность геймплея.</p>
