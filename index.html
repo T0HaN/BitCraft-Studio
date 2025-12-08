@@ -389,8 +389,8 @@
                     <h1>The Curse of the Dead</h1>
                     <p>Психологический хоррор от первого лица на заброшенном корабле. Исследуйте, выживайте и примите решение, которое определит вашу судьбу.</p>
                     <div class="btn-container">
-                        <button class="btn btn-primary">Скачать демо</button>
-                        <button class="btn btn-secondary">Узнать больше</button>
+                        <button class="btn btn-primary" onclick=toGame()>Скачать демо</button>
+                        <button class="btn btn-secondary" >Узнать больше</button>
                     </div>
                 </div>
                 <div class="hero-video">
@@ -538,6 +538,10 @@
     </footer>
 
     <script>
+        function toGame(){
+            window.location.href = 'https://drive.google.com/drive/folders/1UyUmOYSINvxBtSxUB8e3STDHwuFDJjsY?usp=drive_link'
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             // Navigation
             const navLinks = document.querySelectorAll('.nav-link');
